@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWSimpleGeminiAI",
       "state" : {
-        "branch" : "main",
-        "revision" : "2935cc4d77fd6c2845f9fdd1b0dd37d16cb563c5"
+        "revision" : "b4af2bc9e392f82bfa5cda31dcdbeed7f2a104aa",
+        "version" : "0.1.0"
       }
     }
   ],

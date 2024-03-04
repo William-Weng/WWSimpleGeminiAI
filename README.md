@@ -20,6 +20,7 @@ dependencies: [
 |configure(apiKey:version:model)|[設定apiKey](https://blog.jiatool.com/posts/gemini_api/)|
 |chat(text:)|[執行聊天功能](https://ai.google.dev/tutorials/rest_quickstart)|
 |vision(text:image:compressionQuality:)|以文字解釋圖片功能|
+|stream(text:)|串流輸出文字功能|
 
 ### Example - 範例
 ```swift
@@ -42,7 +43,7 @@ final class ViewController: UIViewController {
     
     @IBAction func chatAction(_ sender: UIButton) {
         
-        let text = "What is Gogole Gemini?"
+        let text = "What is Google Gemini?"
         chat(text: text)
     }
     
@@ -53,15 +54,24 @@ final class ViewController: UIViewController {
         
         vision(text: text, image: image)
     }
+    
+    @IBAction func steamAction(_ sender: UIButton) {
+        
+        let text = "請寫出一首短詩，有風、雨、太陽"
+        steam(text: text)
+    }
 }
 
 // MARK: - 小工具
 private extension ViewController {
     
+    /// 初始化設定
     func initSetting() {
         WWSimpleGeminiAI.configure(apiKey: apiKey)
     }
     
+    /// 聊天功能
+    /// - Parameter text: String
     func chat(text: String) {
         
         WWHUD.shared.display(effect: .default, height: 256)
@@ -78,7 +88,11 @@ private extension ViewController {
             WWHUD.shared.dismiss()
         }
     }
-
+    
+    /// 以文字解釋圖片
+    /// - Parameters:
+    ///   - text: String
+    ///   - image: UIImage?
     func vision(text: String, image: UIImage?) {
         
         WWHUD.shared.display(effect: .default, height: 256)
@@ -90,6 +104,26 @@ private extension ViewController {
             switch result {
             case .failure(let error): myTextView.text = "\(error)"
             case .success(let content): myTextView.text = "\(content ?? "")"
+            }
+            
+            WWHUD.shared.dismiss()
+        }
+    }
+    
+    /// 串流文字
+    /// - Parameters:
+    ///   - text: String
+    func steam(text: String) {
+        
+        WWHUD.shared.display(effect: .default, height: 256)
+
+        Task {
+            
+            let result = await WWSimpleGeminiAI.shared.stream(text: text)
+            
+            switch result {
+            case .failure(let error): myTextView.text = "\(error)"
+            case .success(let content): myTextView.text = "\(content.joined())"
             }
             
             WWHUD.shared.dismiss()
