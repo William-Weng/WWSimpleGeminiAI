@@ -15,6 +15,7 @@ public extension WWSimpleGeminiAI {
         
         case chat           // 聊天問答
         case vision         // 圖片辨識功能
+        case stream         // 串流功能
         
         /// 取得url
         /// - Returns: String
@@ -25,6 +26,7 @@ public extension WWSimpleGeminiAI {
             switch self {
             case .chat: model = "\(WWSimpleGeminiAI.model.value()):generateContent"
             case .vision: model = "\(WWSimpleGeminiAI.model.value())-vision:generateContent"
+            case .stream: model = "\(WWSimpleGeminiAI.model.value()):streamGenerateContent"
             }
             
             return "\(WWSimpleGeminiAI.baseURL)/\(WWSimpleGeminiAI.version.value())/models/\(model)"

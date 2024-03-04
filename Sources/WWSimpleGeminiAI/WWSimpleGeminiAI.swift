@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WWPrint
 import WWNetworking
 
 // MARK: - WWSimpleGeminiAI
@@ -97,6 +98,47 @@ public extension WWSimpleGeminiAI {
         case .success(let info): return parseChatInformation(info)
         }
     }
+    
+    /// 串流輸出文字功能
+    /// - Parameter text: String
+    /// - Returns: Result<[String], Error>
+    func stream(text: String) async -> Result<[String], Error> {
+        
+        let api = WWSimpleGeminiAI.API.stream
+        let header = authorizationHeaders()
+        let json = """
+        {
+            "contents": [{"parts": [{"text": "\(text)"}]}]
+        }
+        """
+        
+        let result = await WWNetworking.shared.request(with: .POST, urlString: api.value(), headers: header, httpBody: json._data())
+        var textArray: [String] = []
+        
+        switch result {
+        case .failure(let error): return .failure(error)
+        case .success(let info):
+            
+            guard let jsonObject = info.data?._jsonObject(),
+                  let array = jsonObject as? [Any]
+            else {
+                return .success(textArray)
+            }
+            
+            textArray = array.compactMap { dict -> String? in
+                
+                guard let dict = dict as? [String: Any],
+                      let text = parseCandidatesText(dict)
+                else {
+                    return nil
+                }
+                
+                return text
+            }
+        }
+        
+        return .success(textArray)
+    }
 }
 
 // MARK: - 小工具
@@ -114,6 +156,16 @@ private extension WWSimpleGeminiAI {
         }
         
         if let error = dictionary["error"] as? [String: Any] { return .failure(GeminiError.error(error)) }
+        let text = parseCandidatesText(dictionary)
+        
+        return .success(text)
+    }
+    
+    /// 解析回傳內容
+    /// => {"candidates":[{"content":{"parts":[{"text":"天氣輕盈如薄紗，漂浮於河水之上。"}]}}]}
+    /// - Parameter dictionary: [String: Any]
+    /// - Returns: String?
+    func parseCandidatesText(_ dictionary: [String: Any]) -> String? {
         
         guard let candidates = dictionary["candidates"] as? [Any],
               let candidate = candidates.first as? [String : Any],
@@ -122,10 +174,10 @@ private extension WWSimpleGeminiAI {
               let part = parts.first as? [String: Any],
               let text = part["text"] as? String
         else {
-            return .success(nil)
+            return nil
         }
-        
-        return .success(text)
+
+        return text
     }
     
     /// 安全認證Header
