@@ -15,7 +15,7 @@ let package = Package(
         .package(url: "https://github.com/William-Weng/WWNetworking.git", from: "1.5.1"),
     ],
     targets: [
-        .target(name: "WWSimpleGeminiAI", dependencies: ["WWNetworking"]),
+        .target(name: "WWSimpleGeminiAI", dependencies: ["WWNetworking"], resources: [.copy("Privacy")]),
     ],
     swiftLanguageVersions: [
         .v5
