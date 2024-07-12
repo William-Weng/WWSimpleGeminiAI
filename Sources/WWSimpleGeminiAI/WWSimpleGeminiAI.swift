@@ -53,7 +53,7 @@ public extension WWSimpleGeminiAI {
         }
         """
         
-        let result = await WWNetworking.shared.request(with: .POST, urlString: api.value(), headers: header, httpBody: json._data())
+        let result = await WWNetworking.shared.request(httpMethod: .POST, urlString: api.value(), headers: header, httpBodyType: .string(json))
         
         switch result {
         case .failure(let error): return .failure(error)
@@ -90,7 +90,7 @@ public extension WWSimpleGeminiAI {
         }
         """
         
-        let result = await WWNetworking.shared.request(with: .POST, urlString: api.value(), headers: header, httpBody: json._data())
+        let result = await WWNetworking.shared.request(httpMethod: .POST, urlString: api.value(), headers: header, httpBodyType: .string(json))
         
         switch result {
         case .failure(let error): return .failure(error)
@@ -111,7 +111,7 @@ public extension WWSimpleGeminiAI {
         }
         """
         
-        let result = await WWNetworking.shared.request(with: .POST, urlString: api.value(), headers: header, httpBody: json._data())
+        let result = await WWNetworking.shared.request(httpMethod: .POST, urlString: api.value(), headers: header, httpBodyType: .string(json))
         var textArray: [String] = []
         
         switch result {
