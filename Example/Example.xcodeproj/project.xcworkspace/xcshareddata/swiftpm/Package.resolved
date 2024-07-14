@@ -1,12 +1,13 @@
 {
+  "originHash" : "a21744a677dff981301fce761cf8191e8eaa690fb98fddcd5fc99157fd26447a",
   "pins" : [
     {
       "identity" : "wwhud",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWHUD.git",
       "state" : {
-        "revision" : "9587c687d2bef23727a9fbc827cf46af63d1917f",
-        "version" : "1.2.0"
+        "revision" : "eb99ab96183c0aba10be35bf747f388ef8c4b50e",
+        "version" : "1.3.1"
       }
     },
     {
@@ -14,17 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWNetworking.git",
       "state" : {
-        "revision" : "d47d710216c892d13684de471158d35f67d27399",
-        "version" : "1.5.1"
-      }
-    },
-    {
-      "identity" : "wwprint",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/William-Weng/WWPrint",
-      "state" : {
-        "revision" : "0acf1057863faea81c3ded2057c21b09c3435435",
-        "version" : "1.3.0"
+        "revision" : "cad6323f8ec5b7fe87ac4c0e820c0529d402e5e1",
+        "version" : "1.6.2"
       }
     },
     {
@@ -32,10 +24,10 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWSimpleGeminiAI",
       "state" : {
-        "revision" : "b4af2bc9e392f82bfa5cda31dcdbeed7f2a104aa",
-        "version" : "0.1.0"
+        "revision" : "397b6cf13bff853073ee549f88f9820e45169580",
+        "version" : "0.2.2"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

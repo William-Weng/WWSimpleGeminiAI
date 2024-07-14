@@ -10,7 +10,7 @@
 ### [Installation with Swift Package Manager](https://medium.com/彼得潘的-swift-ios-app-開發問題解答集/使用-spm-安裝第三方套件-xcode-11-新功能-2c4ffcf85b4b)
 ```js
 dependencies: [
-    .package(url: "https://github.com/William-Weng/WWSimpleGeminiAI.git", .upToNextMajor(from: "0.1.0"))
+    .package(url: "https://github.com/William-Weng/WWSimpleGeminiAI.git", .upToNextMajor(from: "0.2.2"))
 ]
 ```
 
@@ -29,7 +29,6 @@ import WWPrint
 import WWHUD
 import WWSimpleGeminiAI
 
-// MARK: - ViewController
 final class ViewController: UIViewController {
 
     private let apiKey = "<API_Key>"
@@ -62,16 +61,12 @@ final class ViewController: UIViewController {
     }
 }
 
-// MARK: - 小工具
 private extension ViewController {
     
-    /// 初始化設定
     func initSetting() {
         WWSimpleGeminiAI.configure(apiKey: apiKey)
     }
     
-    /// 聊天功能
-    /// - Parameter text: String
     func chat(text: String) {
         
         WWHUD.shared.display(effect: .default, height: 256)
@@ -89,10 +84,6 @@ private extension ViewController {
         }
     }
     
-    /// 以文字解釋圖片
-    /// - Parameters:
-    ///   - text: String
-    ///   - image: UIImage?
     func vision(text: String, image: UIImage?) {
         
         WWHUD.shared.display(effect: .default, height: 256)
@@ -110,9 +101,6 @@ private extension ViewController {
         }
     }
     
-    /// 串流文字
-    /// - Parameters:
-    ///   - text: String
     func steam(text: String) {
         
         WWHUD.shared.display(effect: .default, height: 256)
