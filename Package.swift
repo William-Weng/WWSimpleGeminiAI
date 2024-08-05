@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "WWSimpleGeminiAI", targets: ["WWSimpleGeminiAI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/William-Weng/WWNetworking.git", from: "1.5.1"),
+        .package(url: "https://github.com/William-Weng/WWNetworking.git", from: "1.6.2"),
     ],
     targets: [
         .target(name: "WWSimpleGeminiAI", dependencies: ["WWNetworking"], resources: [.copy("Privacy")]),
